@@ -1,0 +1,47 @@
+name: ${NAME_PROJECT}
+
+networks:
+  amasty:
+    driver: bridge
+
+volumes:
+  mysql-amasty:
+
+services:
+  nginx:
+    image: nginx:latest
+    container_name: amasty-nginx
+    restart: unless-stopped
+    ports:
+      - ${WEB_PORT}:80
+    volumes:
+      - ./docker/nginx/:/etc/nginx/conf.d
+      - ./app:/app
+    networks:
+      - amasty
+
+  php-fpm:
+    image: 'bitnami/php-fpm:latest'
+    container_name: amasty-php-fpm
+    restart: unless-stopped
+    volumes:
+      - ./app:/app
+    networks:
+      - amasty
+
+  mysql:
+    image: mysql:8.0.37
+    container_name: amasty-mysql
+    restart: always
+    environment:
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+    volumes:
+      - ./docker/databases/mysql/:/docker-entrypoint-initdb.d
+      - mysql-amasty:/var/lib/mysql
+    ports:
+      - ${MYSQL_PORT}:3306
+    networks:
+      - amasty
