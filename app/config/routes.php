@@ -8,8 +8,7 @@ return
     [
         'GET'  =>
             [
-                'index'    => [IndexController::class, 'index'],
-                'indexs'    => [],
+                'index'  => [IndexController::class, 'index'],
             ],
         'POST' =>
             [

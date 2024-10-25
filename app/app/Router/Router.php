@@ -15,11 +15,6 @@ class Router
     private const string ROUTES_CONFIG = 'routes';
 
     /**
-     * Locale config file
-     */
-    private const string LOCALE_CONFIG = 'locale';
-
-    /**
      * @var array
      */
     protected array $routes;
@@ -32,7 +27,6 @@ class Router
     public function __construct()
     {
         $this->routes = $this->getConfig(self::ROUTES_CONFIG);
-        $this->locale = $this->getConfig(self::LOCALE_CONFIG);
     }
 
     public function start(): void
@@ -42,13 +36,12 @@ class Router
             if (!count($controller)) {
                 throw new \Exception('Controller not found');
             }
-            $locale = $controller['locale'] ?? false;
             $controllerClass = $controller['controller'][0] ?? false;
             $controllerMethod = $controller['controller'][1] ?? false;
 
             if ($controllerClass && $controllerMethod) {
                 if (class_exists($controllerClass)) {
-                    $controller = new $controllerClass($locale);
+                    $controller = new $controllerClass();
                 } else {
                     throw new \Exception('Controller class "' . $controllerClass . '" not found');
                 }
@@ -93,26 +86,15 @@ class Router
         $url = $this->geUrl();
         $uri = trim($url['path'], '/');
         $routes = $this->routes[$method] ?? [];
-
         if (empty($uri)) {
             return [
-                'locale'     => $this->defaultLocale(),
                 'controller' => $routes['index'] ?? false,
             ];
         }
 
-        $uriArray = explode('/', $uri);
-        $locale = $this->getLocale($uriArray);
-        if ($locale) {
-            array_shift($uriArray);
-        } else {
-            $locale = $this->defaultLocale();
-        }
-        $uri = implode('/', $uriArray);
         foreach ($routes as $queryString => $controller) {
             if ($uri === $queryString) {
                 return [
-                    'locale'     => $locale,
                     'controller' => $controller,
                 ];
             }
@@ -132,33 +114,4 @@ class Router
 
         return (count($config)) ? $config : [];
     }
-
-    /**
-     * @return string|null
-     */
-    private function defaultLocale(): ?string
-    {
-        return $this->locale['locale']['default'] ?? null;
-    }
-
-    /**
-     * @param array $uri
-     *
-     * @return string|null
-     */
-    private function getLocale(array $uri): ?string
-    {
-        $locale = null;
-
-        if (count($uri)) {
-            foreach ($this->locale['locale']['locales'] as $value) {
-                if ($value === $uri[0]) {
-                    $locale = $value;
-                }
-            }
-        }
-
-        return $locale;
-    }
-
 }

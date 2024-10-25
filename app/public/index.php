@@ -14,7 +14,8 @@ use App\Core\Bootstrap;
 use App\Router\Router;
 
 try {
-    Bootstrap::run(__DIR__.'/../');
+    define("ROOT_DIR", __DIR__ . '/../');
+    Bootstrap::run(ROOT_DIR);
     $router = new Router();
     $router->start();
 }catch (\Throwable $exception){

@@ -8,20 +8,42 @@ use App\Core\Model\AbstractModel;
 
 class IndexModel extends AbstractModel
 {
-    protected $table = 'amasty';
 
     /**
      * @param array|null $data
      *
      * @return mixed
      */
-    public function getData(array $data = null): mixed
+    public function getData(string $table, array $data = null): mixed
     {
-        $sql = "SELECT * FROM `" . $this->table . "`";
+        $sql = "SELECT * FROM `" . $table . "`";
         $result =  $this->query($sql, 'fetch');
         if ($result) {
             return $result;
         }
         return [];
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPizza(): mixed {
+        return $this->getData('pizza');
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSize(): mixed
+    {
+        return $this->getData('size');
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSauce(): mixed
+    {
+        return $this->getData('sauce');
     }
 }

@@ -30,6 +30,6 @@ class Config
      */
     protected static function getFullPath(string $filename): string
     {
-        return $_SERVER['DOCUMENT_ROOT'] . '/../config/' . $filename . '.php';
+        return ROOT_DIR . '/config/' . $filename . '.php';
     }
 }

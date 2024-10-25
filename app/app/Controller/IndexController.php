@@ -7,10 +7,16 @@ use App\Model\IndexModel;
 
 class IndexController extends AbstractController
 {
-    public function index() {
+    public function index(): void
+    {
         $model = new IndexModel();
-        var_dump($model->getData());
-        echo "START IndexController ";
-        echo "locale: ".$this->locale;
+        $this->view->render('index.phtml', [
+            'title' => 'Home Page',
+            'formTitle' => 'Order pizza',
+            'currency' => $this->currency,
+            'pizzas' => $model->getPizza(),
+            'sauces' => $model->getSauce(),
+            'sizes' => $model->getSize(),
+        ]);
     }
 }
