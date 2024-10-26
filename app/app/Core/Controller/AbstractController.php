@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace App\Core\Controller;
 
 use App\Core\Config;
+use App\Service\Response;
 use App\View\View;
+use App\Service\Request;
 
 abstract class AbstractController
 {
@@ -20,12 +22,23 @@ abstract class AbstractController
     protected View $view;
 
     /**
+     * @var Request
+     */
+    protected Request $request;
+
+    /**
+     * @var Response
+     */
+    protected Response $response;
+    /**
      *
      */
     public function __construct()
     {
         $this->currency = $this->getCurrency();
         $this->view = new View();
+        $this->request = new Request();
+        $this->response = new Response();
     }
 
     /**

@@ -10,6 +10,7 @@ class IndexModel extends AbstractModel
 {
 
     /**
+     * @param string $table
      * @param array|null $data
      *
      * @return mixed

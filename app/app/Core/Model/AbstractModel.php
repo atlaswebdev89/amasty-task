@@ -42,9 +42,10 @@ abstract class AbstractModel implements QueryInterface
     }
 
     /**
+     * @param string $table
      * @param array|null $data
      *
      * @return mixed
      */
-    abstract public function getData(string $table, array $data = null, ): mixed;
+    abstract public function getData(string $table, array $data = null): mixed;
 }

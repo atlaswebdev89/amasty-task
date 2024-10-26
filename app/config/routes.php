@@ -3,18 +3,17 @@
 declare(strict_types=1);
 
 use App\Controller\IndexController;
+use App\Controller\OrderController;
 
 return
     [
         'GET'  =>
             [
-                'index'  => [IndexController::class, 'index'],
+                'index' => [IndexController::class, 'index'],
+                'order' => [OrderController::class, 'order'],
             ],
         'POST' =>
             [
-                'checkUsers'    => 'login/checkUsers',
-                'logout'        => 'login/logout',
-                'registerUsers' => 'register/registerUsers',
-                'checkLogin'    => 'register/checkLogin',
+                'order' => [OrderController::class, 'order'],
             ],
     ];
