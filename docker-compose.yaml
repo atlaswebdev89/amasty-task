@@ -23,7 +23,7 @@ services:
       - amasty
 
   php-fpm:
-    image: bitnami/php-fpm:latest
+    image: bitnami/php-fpm:8.3.13
     container_name: amasty-php-fpm
     restart: unless-stopped
     volumes:

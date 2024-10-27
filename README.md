@@ -7,5 +7,5 @@ System Requirements:
 
 Install:
 - cd app && composer install
-- docker compose up -d
+- cd .. && docker compose up -d
 - localhost:8811
