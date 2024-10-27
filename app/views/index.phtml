@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>{{ title }}</title>
-    <meta name="keywords" content="" />
-    <meta name="description" content="" />
+    <meta name="keywords" content=""/>
+    <meta name="description" content=""/>
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="/css/style.css">
-    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css"/>
 </head>
 <body>
 <div class="container">
@@ -15,58 +15,59 @@
         <div class="col-md-6 col-sm-8 col-xs-12 col-md-offset-3 col-sm-offset-2">
             <h2>{{ formTitle }}</h2>
             {% block content %}
-                <form>
-                    {% if pizzas %}
-                    <div class="form-group">
-                        <label for="name">Pizza name</label>
-                        <select class="form-control" id="name">
-                            {% for pizza in pizzas %}
-                                <option  value="{{ pizza.id }}">{{ pizza.name }}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
-                    {% endif %}
+            <form id="pizza-form">
+                {% if pizzas %}
+                <div class="form-group">
+                    <label for="name">Pizza name</label>
+                    <select class="form-control" name="pizza" id="name">
+                        {% for pizza in pizzas %}
+                        <option value="{{ pizza.id }}">{{ pizza.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                {% endif %}
 
-                    {% if sizes %}
-                        <div class="form-group">
-                            <label for="size">Size</label>
-                            <select class="form-control" id="size">
-                                {% for size in sizes %}
-                                    <option  value="{{ size.id }}">{{ size.size }}</option>
-                                {% endfor %}
-                            </select>
-                        </div>
-                    {% endif %}
+                {% if sizes %}
+                <div class="form-group">
+                    <label for="size">Size</label>
+                    <select class="form-control" name="size" id="size">
+                        {% for size in sizes %}
+                        <option value="{{ size.id }}">{{ size.size }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                {% endif %}
 
-                    {% if sauces %}
-                        <div class="form-group">
-                            <label for="sauce">Sauce</label>
-                            <select class="form-control" id="sauce">
-                                {% for sauce in sauces %}
-                                    <option  value="{{ sauce.id }}">{{ sauce.name }}</option>
-                                {% endfor %}
-                            </select>
-                        </div>
-                    {% endif %}
+                {% if sauces %}
+                <div class="form-group">
+                    <label for="sauce">Sauce</label>
+                    <select class="form-control" name="sauce" id="sauce">
+                        {% for sauce in sauces %}
+                        <option value="{{ sauce.id }}">{{ sauce.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                {% endif %}
 
-                    {% if currency %}
-                        <div class="form-group">
-                            <label for="currency">Currency</label>
-                            <select class="form-control" id="currency">
-                                {% for key, cash in currency %}
-                                    <option  value="{{ key }}">{{ cash }}</option>
-                                {% endfor %}
-                            </select>
-                        </div>
-                    {% endif %}
-                    <button type="submit" class="btn btn-primary">Place Order</button>
-                </form>
+                {% if currency %}
+                <div class="form-group">
+                    <label for="currency">Currency</label>
+                    <select class="form-control" name="currency" id="currency">
+                        {% for key, cash in currency %}
+                        <option value="{{ key }}">{{ cash }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                {% endif %}
+                <button type="submit" class="btn btn-primary">Place Order</button>
+            </form>
+            <div class="order-status mt-3" style="display: none"></div>
             {% endblock %}
         </div>
     </div>
 </div>
-    <script type="text/javascript" src="/js/jquery-3.7.1.min.js"></script>
-    <script type="text/javascript" src="/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="/js/request.js"></script>
+<script type="text/javascript" src="/js/jquery-3.7.1.min.js"></script>
+<script type="text/javascript" src="/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/js/request.js"></script>
 </body>
 </html>

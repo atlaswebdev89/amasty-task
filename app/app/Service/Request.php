@@ -28,7 +28,7 @@ class Request
      * @return array
      */
     public function getPost (): array {
-        return $this->request['get'];
+        return $this->request['post'];
     }
 
 }

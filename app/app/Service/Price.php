@@ -20,13 +20,12 @@ class Price
 
     public function getPrice(array $data, array $requestData = null): array
     {
-        echo "<PRE>";
-        print_r($data);
-        echo "</PRE>";
         $result = [];
         if (count($data)) {
-            $pricePizza = $data['pizza']['price'] * $data['size']['price_ratio'];
-            $priceSauce = $data['sauce']['price'];
+            $pricePizza = (!empty($data['pizza']['price']) && !empty($data['size']['price_ratio']))
+                ? $data['pizza']['price'] * $data['size']['price_ratio']
+                : false;
+            $priceSauce = $data['sauce']['price'] ?? false;
             $priceTotal = $pricePizza + $priceSauce;
 
             if ($requestData['currency'] == 'byn') {
@@ -35,11 +34,11 @@ class Price
             }
 
             $result = [
-                'Name Pizza'  => $data['pizza']['name'],
-                'Size Pizza'  => $data['size']['size'],
-                'Price Pizza' => $pricePizza,
-                'Sauce Name'  => $data['sauce']['name'],
-                'Price Sauce' => $data['sauce']['price'],
+                'Name Pizza'  => $data['pizza']['name'] ?? null,
+                'Size Pizza'  => $data['size']['size'] ?? null,
+                'Price Pizza' => $pricePizza ?? null,
+                'Sauce Name'  => $data['sauce']['name'] ?? null,
+                'Price Sauce' => $data['sauce']['price'] ?? null,
                 'Total Price' => round($priceTotal, 2),
             ];
         }

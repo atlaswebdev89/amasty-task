@@ -54,7 +54,6 @@ class Router
                 throw new \Exception('Controller class not found');
             }
         } catch (\Exception $exception) {
-            echo $exception->getMessage();
             throw new \Exception($exception->getMessage());
         }
     }

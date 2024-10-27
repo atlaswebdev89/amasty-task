@@ -10,7 +10,6 @@ return
         'GET'  =>
             [
                 'index' => [IndexController::class, 'index'],
-                'order' => [OrderController::class, 'order'],
             ],
         'POST' =>
             [

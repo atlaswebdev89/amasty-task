@@ -6,6 +6,7 @@ namespace App\Core\Controller;
 
 use App\Core\Config;
 use App\Service\Response;
+use App\Service\Validation;
 use App\View\View;
 use App\Service\Request;
 
@@ -30,6 +31,11 @@ abstract class AbstractController
      * @var Response
      */
     protected Response $response;
+
+    /**
+     * @var Validation
+     */
+    protected Validation $validation;
     /**
      *
      */
@@ -39,6 +45,7 @@ abstract class AbstractController
         $this->view = new View();
         $this->request = new Request();
         $this->response = new Response();
+        $this->validation = new Validation();
     }
 
     /**

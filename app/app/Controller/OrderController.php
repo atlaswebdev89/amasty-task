@@ -33,12 +33,17 @@ class OrderController extends AbstractController
      */
     public function order(): void
     {
-        $requestData = $this->request->getPost();
-        echo "<PRE>";
-        print_r($requestData);
-        echo "</PRE>";
-        $orderData = $this->order->getModelData($requestData);
-        $price = $this->price->getPrice($orderData, $requestData);
-        $this->response->json($price);
+        try {
+            $requestData = $this->request->getPost();
+            $errors = $this->validation->validate($requestData);
+            if ($errors) {
+                throw new \Exception();
+            }
+            $orderData = $this->order->getModelData($requestData);
+            $price = $this->price->getPrice($orderData, $requestData);
+            $this->response->json($price);
+        } catch (\Exception $exception) {
+            $this->response->json($errors);
+        }
     }
 }
